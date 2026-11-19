@@ -1,0 +1,6 @@
+# Obtener
+curl -X GET http://localhost:4000/api/almacen
+
+# Crear
+curl -X POST http://localhost:4000/admin/almacen -H "Content-Type: application/json" -d "{\"ubicacion\":\"A1A1\",\"codigo\":\"ART-001\",\"cantidad\":0,\"formato\":\"Caja\",\"estado_etiqueta\":false,\"section\":\"A\"}"
+

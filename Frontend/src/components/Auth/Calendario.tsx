@@ -1,0 +1,10 @@
+function HomeView () {
+    return (
+        <div>
+            <h1>Calendario</h1>
+
+        </div>
+    )
+}
+
+export default HomeView

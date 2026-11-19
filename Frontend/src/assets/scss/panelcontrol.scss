@@ -1,0 +1,17 @@
+@use 'variables' as *;
+
+.dashboard {
+    background-color: $secondary;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 80%;
+    height: calc(100vh - 80px);
+    padding: 30px;
+    font-family: $font;
+
+    h1 {
+        font-size: 30pt;
+    }
+
+}
