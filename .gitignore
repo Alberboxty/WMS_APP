@@ -3,27 +3,30 @@ Backend/.env
 Backend/sql
 
 # Logs
-frontend/logs
-frontend/*.log
-frontend/npm-debug.log*
-frontend/yarn-debug.log*
-frontend/yarn-error.log*
-frontend/pnpm-debug.log*
-frontend/lerna-debug.log*
+FrontendReact/logs
+FrontendReact/*.log
+FrontendReact/npm-debug.log*
+FrontendReact/yarn-debug.log*
+FrontendReact/yarn-error.log*
+FrontendReact/pnpm-debug.log*
+FrontendReact/lerna-debug.log*
 
-frontend/node_modules
-frontend/dist
-frontend/android/
-frontend/dist-ssr
-frontend/*.local
+FrontendVue
+
+FrontendReact/node_modules
+FrontendReact/dist
+FrontendReact/android/
+FrontendReact/dist-ssr
+FrontendReact/*.local
 
 # Editor directories and files
-frontend/.vscode/*
-frontend/!.vscode/extensions.json
-frontend/.idea
-frontend/.DS_Store
-frontend/*.suo
-frontend/*.ntvs*
-frontend/*.njsproj
-frontend/*.sln
-frontend/*.sw?
+FrontendReact/.vscode/*
+FrontendReact/!.vscode/extensions.json
+FrontendReact/.idea
+FrontendReact/.DS_Store
+FrontendReact/*.suo
+FrontendReact/*.ntvs*
+FrontendReact/*.njsproj
+FrontendReact/*.sln
+FrontendReact/*.sw?
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  

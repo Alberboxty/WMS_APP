@@ -1,0 +1,191 @@
+import '@/assets/scss/inventory/inventory.scss'
+
+import { useEffect, useMemo, useState } from 'react'
+
+import { useInventory } from '@/hooks/useInventory'
+
+import InventoryHeader from '@/components/Inventory/InventoryHeader'
+import InventoryFilters from '@/components/Inventory/InventoryFilters'
+import InventoryTable from '@/components/Inventory/InventoryTable'
+import InventoryForm from '@/components/Inventory/InventoryForm'
+
+import type {
+    InventoryItem,
+    InventoryFilter,
+    CreateInventoryItem
+} from '@/types/inventory.types'
+
+const initialFilters: InventoryFilter = {
+    search: '',
+    section: 'all',
+    etiqueta: 'all'
+}
+
+const InventoryView = () => {
+    const {
+        articulos,
+        loading,
+        error,
+        obtenerArticulos,
+        crearArticulo,
+        editarArticulo,
+        actualizarEtiqueta,
+        borrarArticulo
+    } = useInventory()
+
+    const [filters, setFilters] = useState(initialFilters)
+    const [selectedArticle, setSelectedArticle] =
+        useState<InventoryItem | null>(null)
+    const [showForm, setShowForm] = useState(false)
+
+    useEffect(() => {
+        obtenerArticulos()
+    }, [obtenerArticulos])
+
+    const sections = useMemo(() => {
+        return Array.from(
+            new Set(
+                articulos
+                    .map(item => item.section)
+                    .filter((section): section is string => Boolean(section))
+            )
+        ).sort()
+    }, [articulos])
+
+    const filteredArticles = useMemo(() => {
+        return articulos.filter(item => {
+            const search = filters.search.toLowerCase()
+
+            const matchesSearch =
+                item.codigo.toLowerCase().includes(search) ||
+                item.ubicacion.toLowerCase().includes(search)
+
+            const matchesSection =
+                filters.section === 'all' ||
+                (filters.section === 'none'
+                    ? !item.section
+                    : item.section === filters.section)
+
+            const matchesLabel =
+                filters.etiqueta === 'all' ||
+                (filters.etiqueta === 'completed'
+                    ? item.estado_etiqueta
+                    : !item.estado_etiqueta)
+
+            return matchesSearch && matchesSection && matchesLabel
+        })
+    }, [articulos, filters])
+
+    const openCreate = () => {
+        setSelectedArticle(null)
+        setShowForm(true)
+    }
+
+    const openEdit = (articulo: InventoryItem) => {
+        setSelectedArticle(articulo)
+        setShowForm(true)
+    }
+
+    const saveArticle = async (data: CreateInventoryItem) => {
+        if (selectedArticle) {
+            await editarArticulo(selectedArticle.id, data)
+        } else {
+            await crearArticulo(data)
+        }
+    }
+
+    const deleteArticle = async (articulo: InventoryItem) => {
+        const confirmed = window.confirm(
+            `¿Seguro que quieres eliminar el artículo ${articulo.codigo}?`
+        )
+
+        if (!confirmed) return
+
+        try {
+            await borrarArticulo(articulo.id)
+        } catch (err) {
+            console.error(err)
+            window.alert('No se pudo eliminar el artículo.')
+        }
+    }
+
+    const toggleLabel = async (articulo: InventoryItem) => {
+        try {
+            await actualizarEtiqueta(
+                articulo.id,
+                !articulo.estado_etiqueta
+            )
+        } catch (err) {
+            console.error(err)
+            window.alert('No se pudo actualizar el estado de la etiqueta.')
+        }
+    }
+
+    return (
+        <main className="inventory-page">
+            <InventoryHeader
+                total={articulos.length}
+                onCreate={openCreate}
+            />
+
+            <section className="inventory-content">
+                <InventoryFilters
+                    filters={filters}
+                    sections={sections}
+                    onChange={setFilters}
+                />
+
+                <div className="inventory-results">
+                    <div className="inventory-results-heading">
+                        <div>
+                            <h2>Artículos almacenados</h2>
+                            <p>
+                                Mostrando {filteredArticles.length} de{' '}
+                                {articulos.length} artículos
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            className="inventory-refresh"
+                            onClick={obtenerArticulos}
+                            disabled={loading}
+                        >
+                            ↻ Actualizar
+                        </button>
+                    </div>
+
+                    {loading ? (
+                        <div className="inventory-message">
+                            Cargando inventario...
+                        </div>
+                    ) : error ? (
+                        <div className="inventory-message is-error">
+                            {error}
+                            <button onClick={obtenerArticulos}>
+                                Reintentar
+                            </button>
+                        </div>
+                    ) : (
+                        <InventoryTable
+                            articulos={filteredArticles}
+                            onEdit={openEdit}
+                            onDelete={deleteArticle}
+                            onToggleLabel={toggleLabel}
+                        />
+                    )}
+                </div>
+            </section>
+
+            {showForm && (
+                <InventoryForm
+                    articulo={selectedArticle}
+                    onSave={saveArticle}
+                    onClose={() => setShowForm(false)}
+                />
+            )}
+        </main>
+    )
+}
+
+export default InventoryView

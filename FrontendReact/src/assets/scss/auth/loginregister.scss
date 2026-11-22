@@ -1,0 +1,15 @@
+@use '../variables' as *;
+
+.auth {
+    background-color: rgb(0, 255, 255);
+    height: 400px;
+    display: flex;
+    flex-direction: row;
+    font-family: $font;
+    .login {
+        background-color: pink;
+    }
+    .Registro {
+        background-color: greenyellow;
+    }
+}

@@ -1,0 +1,15 @@
+.inventoryArticles {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+    article{
+        background-color: palevioletred;
+        width: 200px;
+        padding: 20px 30px;
+        border-radius: 20px;
+
+    }
+}
