@@ -1,4 +1,4 @@
-import "@/assets/scss/home/homeview.scss"
+// import "@/assets/scss/home/homeview.scss"
 
 import Auth from "@/components/Auth/Auth"
 

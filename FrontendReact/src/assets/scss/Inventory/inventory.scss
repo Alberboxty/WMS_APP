@@ -1,5 +1,6 @@
+@use '../variables' as *;
+
 .inventory-page {
-    background-color: rgb(13, 255, 0);
     margin-top: 100px;
     display: flex;
     flex-direction: column;
@@ -7,22 +8,72 @@
     justify-content: center;
     align-items: center;
 
+    .Titulo {
+        width: 100%;
+        text-align: center;
+        h1 {
+            color: $primary;
+            font-size: 2.2rem;
+        }
+    }
+
+    .filters {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        button {
+            padding: 20px 30px;
+            background-color: $green;
+            border: 0px solid black;
+            border-radius: 10px;
+            border-bottom: 3px solid $red;
+            transition: all ease-in-out 0.3s;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0px 0px 5px $primary;
+            &:hover {
+                border-bottom: 1px solid $red;
+                transition: all ease-in-out 0.3s;
+            }
+
+            i {
+                font-size: 2rem;
+            }
+            p {
+                font-size: 1rem;
+            }
+        }
+    }
+
     .dataStorage {
         article {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 5px;
+            gap: 10px;
             p {
                 padding: 10px 20px;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                background-color: pink;
+                background-color: $pink;
+                box-shadow: 0px 0px 5px $primary;
                 border-radius: 50px;
                 text-align: center;
+                font-family: $font;
+                color: $primary;
+                font-weight: 800;
+                span {
+                    font-weight: 400;
+                }
             }
         }
     }

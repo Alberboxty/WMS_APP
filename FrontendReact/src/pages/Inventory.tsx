@@ -26,6 +26,8 @@ function Inventario () {
         errorForm,
         handleChange,
         abrirCrear,
+        abrirEditar,
+        borrarArticulo,
         cerrarFormulario,
         enviarFormulario
     } = useInventario()
@@ -46,38 +48,37 @@ function Inventario () {
 
     return (
         <main className='inventory-page'>
-            <section>
+            <section className='Titulo'>
                 <h1>Control de Inventario</h1>
             </section>
 
             {formAbierto && (
-                <section>
+                                 
+                <InventoryForm
+                    form={form}
+                    modo={modo}
+                    guardando={guardando}
+                    errorForm={errorForm}
+                    handleChange={handleChange}
+                    enviarFormulario={enviarFormulario}
+                    cerrarFormulario={cerrarFormulario}
+                />
                     
-                        <InventoryForm
-                            form={form}
-                            modo={modo}
-                            guardando={guardando}
-                            errorForm={errorForm}
-                            handleChange={handleChange}
-                            enviarFormulario={enviarFormulario}
-                            cerrarFormulario={cerrarFormulario}
-                        />
-                    
-                </section>
+                
             )}
 
             <section className='dataStorage'>
                 <article>
-                    <p className='TArticles'>Total de artículos: <span>{inventario.length}</span></p>
-                    <p className='TLocates'>Total de ubicaciones: <span>0</span></p>
-                    <p className='EmptyLocates'>Ubicaciones Vacias: <span>0</span></p>
+                    <p className='TArticles'>Total <br /> Artículos: <span>{inventario.length}</span></p>
+                    <p className='TLocates'>Total <br /> Ubicaciones: <span>0</span></p>
+                    <p className='EmptyLocates'>Ubicaciones <br /> Vacias: <span>0</span></p>
                 </article>
             </section> 
 
             
 
-            <section>
-                <button type='button' onClick={abrirCrear}>Añadir artículo</button>
+            <section className='filters'>
+                <button type='button' onClick={abrirCrear}> <i className='pi pi-file-plus'></i> <p>Añadir artículo</p></button>
                 <InventoryFilters
                     busqueda={busqueda} 
                     onChange={setBusqueda}
@@ -87,7 +88,11 @@ function Inventario () {
             
             
             
-            <InventoryArticles inventario={inventarioFiltrado}/>
+            <InventoryArticles 
+                inventario={inventarioFiltrado}
+                onEditar={abrirEditar}
+                onBorrar={borrarArticulo}
+            />
 
             <p>Tabla de ubicaciones disponibles</p>
 

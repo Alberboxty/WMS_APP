@@ -2,14 +2,37 @@
 
 .auth {
     background-color: rgb(0, 255, 255);
-    height: 400px;
-    display: flex;
-    flex-direction: row;
-    font-family: $font;
+    transform: rotateY(180deg);
+
     .login {
         background-color: pink;
+        z-index: 999;
+        padding: 30px 40px;
+        width: 300px;
+        transform: rotateY(180deg);
+        transform-style: preserve-3d;
+        transition: transform 0.6s;
+        
+
+              
     }
+
+    .login.active {
+        display: none;
+    }
+
+
     .Registro {
+        transform: rotateY(180deg);
+        transform-style: preserve-3d;
+        transition: transform 0.6s;
         background-color: greenyellow;
+        z-index: 999;
+        padding: 30px 40px;
+        width: 300px;
+    }
+
+    .Registro.active{
+        display: none;
     }
 }

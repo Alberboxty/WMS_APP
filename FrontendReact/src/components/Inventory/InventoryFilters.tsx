@@ -9,7 +9,7 @@ interface InventoryFiltersProps {
 const InventoryFilters = ({ busqueda, onChange }: InventoryFiltersProps) => {
     return (
         <section className='inventoryFilters'>
-            
+            <i className='pi pi-barcode'></i>
             <input
                 type='search'
                 value={busqueda}

@@ -8,7 +8,11 @@ import { useAuthActions } from '@/hooks/useAuthActions'
 export default function Auth() {
     const { logearse, registrarse, errorLogin, errorRegistro } = useAuthActions()
 
-    // const [isActive, setIsActive] = useState(false)
+    const [registerActive, setRegisterActive] = useState(false)
+
+    const toggleRegister = () => {
+        setRegisterActive(!registerActive);
+    };
 
     // Login
     const [lemail, setLemail] = useState('')
@@ -43,7 +47,7 @@ export default function Auth() {
                     <b>Error al registrarse:</b> {errorRegistro}
                 </span>
             )}
-            <article className="login">
+            <article className={`login ${registerActive ? 'active' : ''}`}>
                 <form onSubmit={handleLogin}>
                     <h2>Iniciar Sesión</h2>
                     <div>
@@ -71,10 +75,18 @@ export default function Auth() {
                     <Link to="/auth/forgotten">
                         <p className="clic">¿Quieres recuperar tu contraseña?</p>
                     </Link>
+
+                    {registerActive ? (
+                        <button type="button" onClick={toggleRegister}>
+                            Inicia Sesión
+                        </button>
+                    ) : (
+                        <button type="button" onClick={toggleRegister}>Registrate</button>
+                    )}
                 </form>
             </article>
 
-            <article className="Registro">
+            <article className={`Registro ${registerActive ? '' : 'active'}`}>
                 <form onSubmit={handleRegister}>
                     <h2>Crear Cuenta</h2>
                     <div>
@@ -109,6 +121,14 @@ export default function Auth() {
                     </div>
                     
                     <button type="submit">Enviar</button>
+
+                    {registerActive ? (
+                        <button type="button" onClick={toggleRegister}>
+                            Inicia Sesión
+                        </button>
+                    ) : (
+                        <button type="button" onClick={toggleRegister}>Registrate</button>
+                    )}
                 </form>
             </article>
         </section>

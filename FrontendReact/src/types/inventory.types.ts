@@ -27,6 +27,7 @@ export interface FormularioArticulo {
     codigo: string
     cantidad: string
     formato: string
+    estado_etiqueta: boolean
 }
 
 export interface InventoryFormProps {
@@ -34,7 +35,10 @@ export interface InventoryFormProps {
     modo: 'Crear' | 'Editar'
     guardando: boolean
     errorForm: string | null
-    handleChange: (campo: keyof FormularioArticulo, valor: string) => void
+    handleChange: <K extends keyof FormularioArticulo>(
+        campo: K,
+        valor: FormularioArticulo[K]
+    ) => void
     enviarFormulario: (e: React.FormEvent<HTMLFormElement>) => void
     cerrarFormulario: () => void
 }

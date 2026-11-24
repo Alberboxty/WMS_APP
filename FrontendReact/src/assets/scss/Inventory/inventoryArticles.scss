@@ -1,3 +1,5 @@
+@use '../variables' as *;
+
 .inventoryArticles {
     display: flex;
     flex-direction: row;
@@ -6,10 +8,68 @@
     width: 100%;
     justify-content: center;
     article{
-        background-color: palevioletred;
+        background-color: $primary;
         width: 200px;
         padding: 20px 30px;
-        border-radius: 20px;
+        border-radius: 20px 5px 20px 5px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        box-shadow: 0px 0px 8px $red;
+
+        hr {
+            border: 1px solid $pink
+        }
+
+        h2 {
+            text-align: center;
+            color: $secondary;
+            font-size: 1.6rem;
+        }
+
+        .ubicacion {
+            p {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                color: $secondary;
+                font-size: 1.1rem;
+                font-family: $font;
+                b {
+                    font-weight: 800;
+                    color: $pink;
+                }
+            }
+
+        }
+
+        .footer {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            flex-wrap: wrap;
+            span {
+                color: $secondary;
+                font-size: 1.1rem;
+                font-family: $font;
+            }
+            small {
+                color: $secondary;
+                font-size: 0.7rem;
+                font-family: $font;
+            }
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+            i {
+                color: $secondary;
+                font-size: 1.5rem;
+            }
+        }
 
     }
 }

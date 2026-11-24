@@ -5,7 +5,8 @@ import type { Stock, CreateArticuloDTO, FormularioArticulo, ModoFormulario } fro
 import { 
     obtenerInventario,
     agregarArticulo,
-    actualizarArticulo
+    actualizarArticulo,
+    eliminarArticulo
 
 } from '@/services/inventory.service'
 
@@ -14,7 +15,8 @@ const FORMULARIO_INICIAL: FormularioArticulo = {
     section: '',
     codigo: '',
     cantidad: '',
-    formato: ''
+    formato: '',
+    estado_etiqueta: false,
 }
 
 
@@ -57,7 +59,10 @@ export const useInventario = () => {
     const modo: ModoFormulario = idSeleccionado === null ? 'Crear' : 'Editar'
 
     // El v-model de vue
-    const handleChange = (campo: keyof FormularioArticulo, valor: string) => {
+    const handleChange = <K extends keyof FormularioArticulo>(
+        campo: K,
+        valor: FormularioArticulo[K]
+    ) => {
         setForm(prev => ({ ...prev, [campo]: valor }))
     }
 
@@ -80,7 +85,8 @@ export const useInventario = () => {
             section: articulo.section ?? '',
             codigo: articulo.codigo,
             cantidad: String(articulo.cantidad),
-            formato: articulo.formato ?? ''
+            formato: articulo.formato ?? '',
+            estado_etiqueta: articulo.estado_etiqueta
         })
         setIdSeleccionado(articulo.id)
         setErrorForm(null)
@@ -110,7 +116,9 @@ export const useInventario = () => {
             codigo,
             section: form.section.trim() || null,
             formato: form.formato.trim() || null,
+            estado_etiqueta: form.estado_etiqueta,
             ...(form.cantidad !== '' && { cantidad: Number(form.cantidad) })
+
         }
 
         try {
@@ -135,6 +143,18 @@ export const useInventario = () => {
         }
     }
 
+    const borrarArticulo = async (articulo: Stock) => {
+        if (!window.confirm(`¿Eliminar el artículo ${articulo.codigo}?`)) return
+
+        try {
+            await eliminarArticulo(articulo.id)
+            await cargarInventario()
+        } catch (err) {
+            console.error(err)
+            setError(err instanceof Error ? err.message : 'No se pudo eliminar el artículo')
+        }
+    }
+
     return {
         inventario,
         loading,
@@ -149,6 +169,7 @@ export const useInventario = () => {
         abrirCrear,
         abrirEditar,
         cerrarFormulario,
-        enviarFormulario
+        enviarFormulario,
+        borrarArticulo
     }
 }
