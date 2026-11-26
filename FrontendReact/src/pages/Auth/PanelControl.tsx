@@ -1,4 +1,4 @@
-import '@/assets/scss/panelcontrol.scss'
+// import '@/assets/scss/panelcontrol.scss'
 
 import Sidebar from '@/components/Sidebar';
 

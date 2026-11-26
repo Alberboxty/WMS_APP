@@ -1,8 +1,10 @@
+// import '@/assets/scss/recoveryPass.pc.scss'
+
 import { useState } from 'react'
 import type { SubmitEvent } from 'react'
 import { useParams } from 'react-router-dom'
 import { useRecoveryPass } from '@/hooks/useRecoveryPass'
-import '@/assets/scss/recoveryPass.pc.scss'
+
 
 export default function RecoveryAuth() {
     const { token = '' } = useParams<{ token: string }>()

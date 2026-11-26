@@ -1,7 +1,7 @@
 import axios from 'axios'
 import type { AuthUser, LoginPayload, RegisterPayload } from '@/types/auth.types'
 
-const API = `${import.meta.env.VITE_API_URL ?? 'http://localhost:4000'}/auth`
+const API = `${import.meta.env.VITE_API_URL ?? 'http://lokuraplay.ddns.net:4000'}/auth`
 
 const routes = {
   login: '/iniciar-sesion',

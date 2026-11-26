@@ -15,7 +15,7 @@ FrontendVue
 
 FrontendReact/node_modules
 FrontendReact/dist
-FrontendReact/android/
+# FrontendReact/android/
 FrontendReact/dist-ssr
 FrontendReact/*.local
 

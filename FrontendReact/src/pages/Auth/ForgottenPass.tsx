@@ -1,8 +1,9 @@
+// import '@/assets/scss/forgottenPass.pc.scss'
+
 import { useState } from 'react'
 import type { SubmitEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuthActions } from '@/hooks/useAuthActions'
-import '@/assets/scss/forgottenPass.pc.scss'
 
 export default function ForgottenPass() {
     const { forgottenPass, errorForgotten, successForgotten } = useAuthActions()
