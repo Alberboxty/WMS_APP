@@ -17,7 +17,12 @@ import cookieParser from 'cookie-parser'
 
 import {emailTest} from "../src/middlewares/mailer.middleware"
 
-
+const origenesPermitidos = [
+    'http://localhost:5173',   // Vite en desarrollo
+    'http://localhost',        // APK con androidScheme: 'http'
+    'https://localhost'        // APK con el esquema por defecto (https)
+    // 'https://tu-web-real'   // el dominio de tu web publicada, si lo hay
+]
 const app = express()
 
 app.use(express.urlencoded({ extended: true }))
@@ -26,7 +31,7 @@ app.use(express.json()) //Middleware que transforma el req.body a un JSON.
 
 
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: origenesPermitidos,
     credentials: true
 }))
 
