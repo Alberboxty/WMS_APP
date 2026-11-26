@@ -161,7 +161,8 @@ export const iniciarSesion = async (req: Request, res: Response) => {
         res
             .cookie("access-token", token, {
                 httpOnly: true,
-                sameSite: true,
+                secure: true,
+                sameSite: "none",
                 maxAge: 1000 * 60 * 60
             })
             .status(201).json({ ok: true, msg: token })
@@ -213,7 +214,8 @@ export const perfil = async (req: Request &{ user?: {email?:string}}, res: Respo
 export const logout = async(_req: Request, res: Response) => {
     res.clearCookie("access-token", {
         httpOnly: true,
-        sameSite: true
+        secure: true,
+        sameSite: "none"
     }).json({
         ok: true,
         msg: messages.errors.logOut

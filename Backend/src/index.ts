@@ -1,5 +1,8 @@
 import express from 'express'
 
+import https from 'https'
+import fs from 'fs'
+
 import authRoutes from './routes/auth.routes'
 import adminRoutes from "./routes/admin.routes"
 import mailerRoutes from "./routes/mailer.routes"
@@ -23,6 +26,12 @@ const origenesPermitidos = [
     'https://localhost'        // APK con el esquema por defecto (https)
     // 'https://tu-web-real'   // el dominio de tu web publicada, si lo hay
 ]
+
+const options = {
+    key: fs.readFileSync(process.env.SSL_KEY!),     // tu clave privada
+    cert: fs.readFileSync(process.env.SSL_CERT!),   // fullchain.pem
+}
+
 const app = express()
 
 app.use(express.urlencoded({ extended: true }))
@@ -54,6 +63,6 @@ app.get("/mailertest", emailTest)
 app.use("/mailer", mailerRoutes)
 app.use("/recoveryPass", forgottenPassRoutes)
 
-app.listen(PORT, ()=> {
+https.createServer(options, app).listen(PORT, ()=> {
     console.log(`El server se inicia en http://${IP}:${PORT}`)
 })
